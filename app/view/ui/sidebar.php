@@ -194,7 +194,7 @@ if($_SESSION["role"] == "superadmin")
         <div class="d-flex align-items-center justify-content-between">
             <a href="" role="button" class="logo d-flex align-items-center fs-6 fst-normal fw-semibold">
                 <img src="../../../assets/logo/<?=$hasil['icon']?>" alt="">
-                <?php echo $hasil[1] ?>
+                <?php echo $hasil['nama_website'] ?>
             </a>
             <i class="bi bi-list toggle-sidebar-btn"></i>
         </div><!-- End Logo -->
@@ -370,7 +370,7 @@ if($_SESSION["role"] == "superadmin")
             <div class="d-flex align-items-center justify-content-between">
                 <a href="" role="button" class="logo d-flex align-items-center fs-6 fst-normal fw-semibold">
                     <img src="../../../assets/logo/<?=$hasil['icon']?>" alt="">
-                    <?php echo $hasil[1] ?>
+                    <?php echo $hasil['nama_website'] ?>
                 </a>
                 <i class="bi bi-list toggle-sidebar-btn"></i>
             </div><!-- End Logo -->

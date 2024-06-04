@@ -1,7 +1,7 @@
 <?php 
 require_once("../../database/koneksi.php");
-$row = $config->query("SELECT * FROM sistem WHERE flags = '1' order by id asc");
-$hasil = $row->fetch_assoc();
+$row = $config->query("SELECT * FROM sistem WHERE flags = '1'");
+$hasil = $row->fetch_array();
 require_once("../../controller/controller.php");
 // Model To Controller
 require_once("../../model/model_pengguna.php");

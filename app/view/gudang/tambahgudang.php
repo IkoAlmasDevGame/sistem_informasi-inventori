@@ -78,12 +78,11 @@
                                                 <?php 
                                                 $row = $jenis->Read("SELECT * FROM jenis_barang order by id asc");
                                                 while ($data = mysqli_fetch_array($row)) {
-                                            ?>
-                                                <option value="<?=$data['id'].$id['jenis_barang']?>">
-                                                    <?php echo $data['jenis_barang'] ?></option>
+                                                    echo "<option value='$data[id].$data[jenis_barang]'>$data[jenis_barang]</option>";
+                                                ?>
                                                 <?php
-                                                }
-                                            ?>
+                                                    }
+                                                ?>
                                             </select>
                                         </td>
                                     </tr>
@@ -104,12 +103,11 @@
                                                 <?php 
                                                 $row = $satuan->Read("SELECT * FROM satuan order by id asc");
                                                 while ($data = mysqli_fetch_array($row)) {
-                                            ?>
-                                                <option value="<?=$data['id'].$id['satuan']?>">
-                                                    <?php echo $data['satuan'] ?></option>
+                                                    echo "<option value='$data[id].$data[satuan]'>$data[satuan]</option>";
+                                                ?>
                                                 <?php
-                                                }
-                                            ?>
+                                                    }
+                                                ?>
                                             </select>
                                         </td>
                                     </tr>

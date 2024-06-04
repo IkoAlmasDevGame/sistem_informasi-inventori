@@ -6,6 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <?php 
         if($_SESSION["role"] == "superadmin" || $_SESSION["role"] == "admin"){
+            require_once("../ui/header.php");
             require_once("../../database/koneksi.php");
             header("Content-Type:   application/vnd.ms-excel; charset=utf-8");
 	        header("Content-Disposition: attachment; filename=Laporan_Supplier (".date('d-m-Y').").xls");
@@ -21,32 +22,35 @@
 
     <body>
         <h2>Laporan Stok Gudang</h2>
-        <table border="1">
-            <tr>
-                <th>No</th>
-                <th>Kode Supplier</th>
-                <th>Nama Supplier</th>
-                <th>Alamat Supplier</th>
-                <th>Telepon Supplier</th>
-            </tr>
-            <?php 
+        <div class="table-responsive">
+            <table class="display table table-bordered" border="1" id="supplier">
+                <tr>
+                    <th>No</th>
+                    <th>Kode Supplier</th>
+                    <th>Nama Supplier</th>
+                    <th>Alamat Supplier</th>
+                    <th>Telepon Supplier</th>
+                </tr>
+                <?php 
                 $no = 1;
                 $sql = "SELECT * FROM supplier order by id asc";
                 $row = $config->query($sql);
                 $hasil = mysqli_fetch_array($row);
                 if ($data = $hasil) {
             ?>
-            <tr>
-                <td><?php echo $no; ?></td>
-                <td><?php echo $data['kode_supplier'] ?></td>
-                <td><?php echo $data['nama_supplier'] ?></td>
-                <td><?php echo $data['alamat'] ?></td>
-                <td><?php echo $data['telepon'] ?></td>
-            </tr>
-            <?php
+                <tr>
+                    <td><?php echo $no; ?></td>
+                    <td><?php echo $data['kode_supplier'] ?></td>
+                    <td><?php echo $data['nama_supplier'] ?></td>
+                    <td><?php echo $data['alamat'] ?></td>
+                    <td><?php echo $data['telepon'] ?></td>
+                </tr>
+                <?php
             $no++;
                 }
             ?>
-    </body>
-
-</html>
+            </table>
+        </div>
+        <?php 
+            require_once("../ui/footer.php");
+        ?>

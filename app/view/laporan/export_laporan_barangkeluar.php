@@ -65,7 +65,7 @@
             if($bln == 'all'){
         ?>
     <div class="table-responsive">
-        <table class="display table table-bordered" id="transaksi">
+        <table class="display table table-bordered" border="1" id="transaksi">
             <thead>
                 <tr>
                     <th>No</th>
@@ -108,7 +108,7 @@
         }else{
         ?>
     <div class="table-responsive">
-        <table class="display table table-bordered" id="transaksi">
+        <table class="display table table-bordered" border="1" id="transaksi">
             <thead>
                 <tr>
                     <th>No</th>

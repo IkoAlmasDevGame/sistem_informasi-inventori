@@ -24,16 +24,16 @@ class Gudang {
         $jenis_barang = htmlentities($_POST['jenis_barang']) ? htmlspecialchars($_POST['jenis_barang']) : $_POST['jenis_barang'];
 		$pecah_jenis = explode(".", $jenis_barang);
 		$id = $pecah_jenis[0];
-        $jenis_barang_pecah = $pecah_jenis[1];
+        $jenis_barang  = $pecah_jenis[1];
         $jumlah = htmlentities($_POST['jumlah']) ? htmlspecialchars($_POST['jumlah']) : $_POST['jumlah'];
-        $satuan= htmlentities($_POST['satuan']) ? htmlspecialchars($_POST['satuan']) : $_POST['satuan'];
+        $satuan = htmlentities($_POST['satuan']) ? htmlspecialchars($_POST['satuan']) : $_POST['satuan'];
         $pecah_satuan = explode(".", $satuan);     
         $id = $pecah_satuan[0];
-        $satuan_pecah = $pecah_satuan[1];
+        $satuan = $pecah_satuan[1];
 
         $table = "gudang";
-        $sql = "INSERT INTO $table (kode_barang, nama_barang, jenis_barang, jumlah, satuan) VALUES
-         ('$kode_barang','$nama_barang','$jenis_barang','$jumlah','$satuan')";
+        $sql = "INSERT $table SET kode_barang = '$kode_barang', nama_barang = '$nama_barang', jenis_barang = '$jenis_barang',
+         jumlah = '$jumlah', satuan = '$satuan'";
         $row = $this->db->query($sql);
 
         if($row){
@@ -61,14 +61,15 @@ class Gudang {
 		$id = $pecah_jenis[0];
         $jenis_barang = $pecah_jenis[1];
         $jumlah = htmlentities($_POST['jumlah']) ? htmlspecialchars($_POST['jumlah']) : $_POST['jumlah'];
-        $satuan= $_POST['satuan'];
+        $satuan = $_POST['satuan'];
         $pecah_satuan = explode(".", $satuan);     
         $id = $pecah_satuan[0];
         $satuan = $pecah_satuan[1];
         $id_gudang = htmlentities($_POST["id"]) ? htmlspecialchars($_POST["id"]) : $_POST["id"];
 
         $table = "gudang";
-        $sql = "UPDATE $table SET kode_barang = '$kode_barang', nama_barang = '$nama_barang', jenis_barang = '$jenis_barang', jumlah = '$jumlah', satuan = '$satuan' WHERE id = ?";
+        $sql = "UPDATE $table SET kode_barang = '$kode_barang', nama_barang = '$nama_barang', jenis_barang = '$jenis_barang',
+         jumlah = '$jumlah', satuan = '$satuan' WHERE id = '$id_gudang'";
         $row = $this->db->query($sql);
 
         if($row){

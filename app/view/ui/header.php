@@ -78,7 +78,6 @@
             }
         }
         </style>
-        <link rel="shortcut icon" href="../../../assets/logo/<?=$hasil['icon']?>" type="image/x-icon">
     </head>
 
     <body>
