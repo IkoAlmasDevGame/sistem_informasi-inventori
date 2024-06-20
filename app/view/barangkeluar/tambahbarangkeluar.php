@@ -8,7 +8,7 @@
             if($_SESSION["role"] == "superadmin" || $_SESSION["role"] == "admin" || $_SESSION["role"] == "petugas")
             {
                 require_once("../ui/header.php");
-                $koneksi = mysqli_connect("localhost", "root", "", "cp_sistem_inventori");
+                $koneksi = mysqli_connect("localhost", "root", "", "sistem_inventori");
                 // $koneksi = mysqli_connect("localhost", "root", "", "sistem_inventori");
                 $no = $koneksi->query("SELECT id_transaksi FROM barang_keluar order by id_transaksi desc");
                 $idtrans = mysqli_fetch_array($no);
