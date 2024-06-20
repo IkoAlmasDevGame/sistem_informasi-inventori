@@ -8,8 +8,8 @@
             if($_SESSION["role"] == "superadmin" || $_SESSION["role"] == "admin" || $_SESSION["role"] == "petugas")
             {
                 require_once("../ui/header.php");
-                $no = $config->prepare("SELECT kode_supplier FROM supplier order by kode_supplier desc");
-                $idtran = $no->fetch();
+                $no = $config->query("SELECT kode_supplier FROM supplier order by kode_supplier desc");
+                $idtran = $no->fetch_array();
                 $kode = isset($idtran["kode_supplier"]);
 
                 $urut = substr($kode, 8, 3);
