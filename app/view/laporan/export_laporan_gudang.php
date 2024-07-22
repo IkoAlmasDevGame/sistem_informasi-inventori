@@ -36,8 +36,7 @@
                 $no = 1;
                 $sql = "SELECT * FROM gudang order by id asc";
                 $row = $config->query($sql);
-                $hasil = mysqli_fetch_array($row);
-                if ($data = $hasil) {
+                while ($data = $row->fetch_array()) {
             ?>
                 <tr>
                     <td><?php echo $no; ?></td>
@@ -48,7 +47,7 @@
                     <td><?php echo $data['satuan'] ?></td>
                 </tr>
                 <?php
-            $no++;
+                $no++;
                 }
             ?>
             </table>

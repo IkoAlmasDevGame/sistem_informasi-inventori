@@ -179,6 +179,27 @@ class JenisBarang {
             return false;
         }
     }
+
+    public function ubah(){
+        $jenis = htmlentities($_POST['jenis_barang']) ? htmlspecialchars($_POST['jenis_barang']) : $_POST['jenis_barang'];
+        $id = htmlentities($_POST['id']) ? htmlspecialchars($_POST['id']) : $_POST['id'];
+        $result = $this->konfig->update($jenis,$id);
+        if($result === true){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public function hapus(){
+        $id = htmlentities($_GET['id']) ? htmlspecialchars($_GET['id']) : $_GET['id'];
+        $result = $this->konfig->delete($id);
+        if($result === true){
+            return true;
+        }else{
+            return false;
+        }
+    }
 }
 
 class SatuanBarang {

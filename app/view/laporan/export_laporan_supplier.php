@@ -35,8 +35,7 @@
                 $no = 1;
                 $sql = "SELECT * FROM supplier order by id asc";
                 $row = $config->query($sql);
-                $hasil = mysqli_fetch_array($row);
-                if ($data = $hasil) {
+                while ($data = $row->fetch_array()) {
             ?>
                 <tr>
                     <td><?php echo $no; ?></td>

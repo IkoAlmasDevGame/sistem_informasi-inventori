@@ -22,6 +22,8 @@ $satuan = new controller\SatuanBarang($config);
 $gudang = new controller\Building($config);
 $supplier = new controller\Distributor($config);
 $sistem = new controller\Sistem($config);
+$modelbrgmasuk = new model\BarangMasuk($konfigs);
+$modelbrgkeluar = new model\BarangKeluar($konfigs);
 
 if(!isset($_GET["page"])){
     require_once("../dashboard/index.php");
@@ -177,9 +179,18 @@ if(!isset($_GET["aksi"])){
         case 'tambahjenisbarang':
             require_once("../jenisbarang/tambahjenisbarang.php");
             break;
+        case 'ubahjenisbarang':
+            require_once("../jenisbarang/ubahjenisbarang.php");
+            break;
             // Aksi Jenis
             case 'tambah-jenis':
                 $jenis->buat();
+                break;
+            case 'ubah-jenis':
+                $jenis->ubah();
+                break;
+            case 'hapus-jenis':
+                $jenis->hapus();
                 break;
         // Data Master Barang Jenis
         

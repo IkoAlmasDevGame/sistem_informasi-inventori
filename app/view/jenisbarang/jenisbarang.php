@@ -37,6 +37,7 @@
                                 <tr>
                                     <th>No</th>
                                     <th>Jenis Barang</th>
+                                    <th>Opsional</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -48,6 +49,17 @@
                                 <tr>
                                     <td><?php echo $no; ?></td>
                                     <td><?php echo $isi['jenis_barang'] ?></td>
+                                    <td>
+                                        <a href="?page=jenisbarang&aksi=ubahjenisbarang&id=<?=$isi['id']?>"
+                                            aria-current="page" class="btn btn-sm btn-warning">
+                                            <i class="fa fa-edit fa-1x"></i>
+                                        </a>
+                                        <a href="aksi=hapus-jenis&id=<?=$isi['id']?>" aria-current="page"
+                                            class="btn btn-sm btn-danger"
+                                            onclick="return confirm('Apakah anda ingin menghapus data ini ?')">
+                                            <i class="fa fa-trash fa-1x"></i>
+                                        </a>
+                                    </td>
                                 </tr>
                                 <?php
                                 $no++;

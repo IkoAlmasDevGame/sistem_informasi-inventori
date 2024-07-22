@@ -34,7 +34,7 @@
             }
         ?>
         <title>Data Master Barang Keluar</title>
-        <script>
+        <script lang="javascript">
         function sum() {
             var stok = document.getElementById('stok').value;
             var jumlahkeluar = document.getElementById('jumlahkeluar').value;
@@ -104,8 +104,8 @@
                                             <div class="tampung"></div>
                                             <label for="">Jumlah</label>
                                             <div class="form-line">
-                                                <input type="text" name="jumlahkeluar" id="jumlahkeluar" onkeyup="sum()"
-                                                    class="form-control" required />
+                                                <input type="text" name="jumlahkeluar" id="jumlahkeluar"
+                                                    class="form-control" required onkeyup="sum()" />
                                             </div>
                                         </td>
                                     </tr>

@@ -80,6 +80,42 @@ class BarangKeluar {
             exit;            
         }
     }
+
+    public function jual(){
+        $date = date("Y-m-d");
+        $sql = "SELECT * FROM barang_keluar WHERE tanggal = ? order by id asc";
+        $row = $this->db->prepare($sql);
+        $row->execute(array($date));
+        $hasil = $row->fetchAll();
+        return $hasil;
+    }
+
+    public function periode_jual($periode){
+        $sql = "SELECT * FROM barang_keluar WHERE tanggal = ? order by id asc";
+        $row = $this->db->prepare($sql);
+        $row->execute(array($periode));
+        $hasil = $row->fetchAll();
+        return $hasil;
+    }
+
+    public function hari_jual($hari){
+        $ex = explode('-', $hari);
+        $monthNum  = $ex[1];
+        $monthName = date('F', mktime(0, 0, 0, $monthNum, 10));
+        if ($ex[2] > 9) {
+            $tgl = $ex[2];
+        } else {
+            $tgl1 = explode('0', $ex[2]);
+            $tgl = $tgl1[1];
+        }
+        $cek = $tgl.' '.$monthName.' '.$ex[0];
+        $param = "%{$cek}%";
+        $sql = "SELECT * FROM barang_keluar WHERE tanggal = ? order by id asc";
+        $row = $this->db->prepare($sql);
+        $row->execute(array($param));
+        $hasil = $row->fetchAll();
+        return $hasil;
+    }
 }
 
 ?>
