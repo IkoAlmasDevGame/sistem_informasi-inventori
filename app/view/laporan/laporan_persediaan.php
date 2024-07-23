@@ -23,184 +23,136 @@
             <div class="row">
                 <div class="card">
                     <div class="card-header py-2">
-                        <h4 class="card-title"></h4>
+                        <h4 class="card-title">Laporan Persediaan</h4>
+                        <form action="" method="post">
+                            <div class="d-flex justify-content-start align-items-center flex-wrap">
+                                <div class="col-sm-3 mx-1">
+                                    <select name="nama_barang" class="form-select" id="">
+                                        <option value="">Pilih Nama Barang</option>
+                                        <?php 
+                                            $master = $config->query("SELECT * FROM gudang order by id asc");
+                                            while($data = $master->fetch_array()){
+                                        ?>
+                                        <option value="<?=$data['nama_barang']?>">
+                                            <?=$data['nama_barang']?>
+                                        </option>
+                                        <?php
+                                            }
+                                        ?>
+                                    </select>
+                                </div>
+                                <div class="col-sm-3 mx-1">
+                                    <select name="tanggal" class="form-select" id="">
+                                        <option value="">Pilih Tanggal</option>
+                                        <?php 
+                                            $master2 = $config->query("SELECT barang_masuk.*, barang_keluar.tanggal FROM barang_masuk LEFT JOIN barang_keluar ON barang_masuk.tanggal = barang_keluar.tanggal group by barang_masuk.tanggal asc");
+                                            while($data2 = $master2->fetch_array()){
+                                        ?>
+                                        <option value="<?=$data2['tanggal']?>">
+                                            <?=$data2['tanggal']?>
+                                        </option>
+                                        <?php
+                                            }
+                                        ?>
+                                    </select>
+                                </div>
+                                <div class="col-sm-3 mx-1">
+                                    <button type="submit" class="btn btn-primary">
+                                        Submit
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                        <div class="text-end">
+                            <a href="?page=laporan-persediaan" class="btn btn-info btn-sm">
+                                <i class="fa fa-refresh fa-1x"></i>
+                                <span>Refresh Page</span>
+                            </a>
+                        </div>
                     </div>
                     <div class="card-body">
-                        <div class="table-responsive">
-                            <div class="form-group mt-1">
-                                <form action="" method="post">
-                                    <div class="d-flex justify-content-start align-items-center flex-wrap">
-                                        <div class="col-sm-3 mx-2">
-                                            <select name="nama_barang" class="form-select"
-                                                aria-controls="example1_length">
-                                                <option value="">Pilih Jenis Barang</option>
-                                                <?php 
-                                                $master = $config->query("SELECT * FROM gudang order by jenis_barang desc");
-                                                while($data = $master->fetch_array()){
-                                                ?>
-                                                <option value="<?=$data['nama_barang']?>">
-                                                    <?=$data['nama_barang']?></option>
-                                                <?php
-                                                    }
-                                                ?>
-                                            </select>
-                                        </div>
-                                        <button type="submit" class="btn btn-sm btn-primary">Tampilkan</button>
-                                    </div>
-                                </form>
-                                <?php 
-                                    if(isset($_POST['nama_barang'])){
-                                        $nama = htmlspecialchars($_POST['nama_barang']);
-                                        $sqlnb = "SELECT gudang.*, barang_masuk.tanggal, barang_masuk.nama_barang, barang_keluar.tanggal, barang_keluar.tanggal FROM gudang inner join barang_masuk on gudang.nama_barang = barang_masuk.nama_barang inner join barang_keluar on gudang.nama_barang = barang_keluar.nama_barang where gudang.nama_barang = '$nama' && barang_masuk.tanggal=barang_keluar.tanggal group by gudang.nama_barang desc";
-                                        $rownb = $config->query($sqlnb);
-                                        if($isnb = $rownb->fetch_array()){
-                                ?>
-                                <div class="ms-4 col-sm-3 mt-2">
-                                    <a href="" aria-current="page" class="btn btn-primary">
-                                        <i class="fa fa-file-export fa-1x"></i>
-                                        <span>File Export to Excel</span>
-                                    </a>
-                                </div>
-                                <?php
-                                    }
-                                }else{
-                                    echo "<div class='ms-4 mt-2'>tidak bisa print halaman ini.</div>";
+                        <br>
+                        <h1>Stok IN</h1>
+                        <h2>Stok Barang Masuk (IN)</h2>
+                        <table class="table-layout">
+                            <tr>
+                                <th class="table-layout-2">No</th>
+                                <th class="table-layout-2">Transaksi Masuk</th>
+                                <th class="table-layout-2">Nama Barang</th>
+                                <th class="table-layout-2">Qty</th>
+                                <th class="table-layout-2">Tanggal Masuk</th>
+                            </tr>
+
+                            <?php
+                            if(isset($_POST['nama_barang']) && isset($_POST['tanggal'])){
+                            $sql = mysqli_query($config, "SELECT barang_masuk.tanggal, barang_masuk.jumlah, barang_masuk.id_transaksi, barang_masuk.nama_barang, gudang.nama_barang FROM barang_masuk LEFT JOIN gudang ON barang_masuk.nama_barang = gudang.nama_barang where barang_masuk.nama_barang = '$_POST[nama_barang]' and barang_masuk.tanggal = '$_POST[tanggal]' group BY barang_masuk.tanggal desc") or die(mysqli_error($config));            
+                            $no = 1;
+                            while ($a = mysqli_fetch_assoc($sql)) {
+                                echo"<tr>
+                                    <td class='table-layout-2'>".$no++."</td>
+                                    <td class='table-layout-2'>".$a['id_transaksi']."</td>
+                                    <td class='table-layout-2'>".$a['nama_barang']."</td>
+                                    <td class='table-layout-2'>".$a['jumlah']."</td>
+                                    <td class='table-layout-2'>".$a['tanggal']."</td>
+                                </tr>";
                                 }
-                                ?>
-                            </div>
-                            <div class="card" style="width: max-content;">
-                                <div class="card-body">
-                                    <div class="border border-1 mt-3">
-                                        <div class="d-flex justify-content-evenly align-items-center flex-wrap">
-                                            <table class="table-layout" style="width: 284px;" id="example3">
-                                                <thead>
-                                                    <tr>
-                                                        <th class="table-layout-2 text-center
-                                                         sorting_desc sorting_desc_disabled sorting_asc sorting_asc_disabled"
-                                                            style="height:100px; max-height: 100px;" disabled>
-                                                            Nama Barang</th>
-                                                    </tr>
-                                                    </th>
-                                                </thead>
-                                                <tbody>
-                                                    <?php 
-                                                        if(isset($_POST['nama_barang'])){
-                                                            $nama = htmlspecialchars($_POST['nama_barang']);
-                                                            $sql = "SELECT gudang.*, barang_masuk.tanggal, barang_masuk.nama_barang, barang_keluar.tanggal, barang_keluar.tanggal FROM gudang inner join barang_masuk on gudang.nama_barang = barang_masuk.nama_barang inner join barang_keluar on gudang.nama_barang = barang_keluar.nama_barang where gudang.nama_barang = '$nama' && barang_masuk.tanggal=barang_keluar.tanggal group by gudang.nama_barang desc";
-                                                            $row = $config->query($sql);
-                                                            while($i = $row->fetch_array()){
-                                                    ?>
-                                                    <tr>
-                                                        <td class="text-center table-layout-2">
-                                                            <?php echo $i['nama_barang'] ?></td>
-                                                    </tr>
-                                                    <?php
-                                                        }
-                                                    }
-                                                    ?>
-                                                </tbody>
-                                            </table>
-                                            <table class="table-layout" style="width: 300px;" id="example4">
-                                                <thead>
-                                                    <tr>
-                                                        <th class="table-layout-2 text-center sorting_desc 
-                                                        sorting_desc_disabled sorting_asc sorting_asc_disabled">
-                                                            Barang Masuk</th>
-                                                    </tr>
-                                                    <tr>
-                                                        <th class="table-layout-2 text-center sorting_desc
-                                                         sorting_desc_disabled sorting_asc sorting_asc_disabled">Qty
-                                                        </th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <?php 
-                                                        if(isset($_POST['nama_barang'])){
-                                                            $nama = htmlspecialchars($_POST['nama_barang']);
-                                                            $sqlmsk = "SELECT gudang.*, barang_masuk.tanggal, barang_masuk.jumlah, barang_masuk.nama_barang, barang_keluar.tanggal, barang_keluar.tanggal FROM gudang inner join barang_masuk on gudang.nama_barang = barang_masuk.nama_barang inner join barang_keluar on gudang.nama_barang = barang_keluar.nama_barang where gudang.nama_barang = '$nama' && barang_masuk.tanggal=barang_keluar.tanggal";
-                                                            $rowmsk = $config->query($sqlmsk);
-                                                            while($is = $rowmsk->fetch_array()){
-                                                    ?>
-                                                    <td></td>
-                                                    <tr>
-                                                        <td class="table-layout-2 text-center">
-                                                            <?php echo $is['jumlah'] ?></td>
-                                                    </tr>
-                                                    <?php
-                                                        }
-                                                    }
-                                                    ?>
-                                                </tbody>
-                                            </table>
-                                            <table class="table-layout" style="width: 300px;" id="example5">
-                                                <thead>
-                                                    <tr>
-                                                        <th class="table-layout-2 text-center sorting_desc
-                                                             sorting_desc_disabled sorting_asc sorting_asc_disabled">
-                                                            Barang Keluar</th>
-                                                    </tr>
-                                                    <tr>
-                                                        <th class="table-layout-2 text-center sorting_desc
-                                                         sorting_desc_disabled sorting_asc sorting_asc_disabled">Qty
-                                                        </th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <?php 
-                                                        if(isset($_POST['nama_barang'])){
-                                                            $nama = htmlspecialchars($_POST['nama_barang']);
-                                                            $sqlklr = "SELECT gudang.*, barang_masuk.tanggal, barang_keluar.jumlah, barang_masuk.nama_barang, barang_keluar.tanggal, barang_keluar.tanggal FROM gudang inner join barang_masuk on gudang.nama_barang = barang_masuk.nama_barang inner join barang_keluar on gudang.nama_barang = barang_keluar.nama_barang where gudang.nama_barang = '$nama' && barang_masuk.tanggal=barang_keluar.tanggal";
-                                                            $rowklr = $config->query($sqlklr);
-                                                            while($isi = $rowklr->fetch_array()){
-                                                    ?>
-                                                    <td></td>
-                                                    <tr>
-                                                        <td class="table-layout-2 text-center">
-                                                            <?php echo $isi['jumlah'] ?></td>
-                                                    </tr>
-                                                    <?php
-                                                        }
-                                                    }
-                                                    ?>
-                                                </tbody>
-                                            </table>
-                                            <table class="table-layout" style="width: 300px;" id="example6">
-                                                <thead>
-                                                    <tr>
-                                                        <th class="table-layout-2 text-center sorting_desc 
-                                                            sorting_desc_disabled sorting_asc sorting_asc_disabled">
-                                                            Persediaan</th>
-                                                    </tr>
-                                                    <tr>
-                                                        <th class="table-layout-2 text-center sorting_desc 
-                                                            sorting_desc_disabled sorting_asc sorting_asc_disabled">
-                                                            Qty</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <?php 
-                                                        if(isset($_POST['nama_barang'])){
-                                                            $nama = htmlspecialchars($_POST['nama_barang']);
-                                                            $sqlmsk = "SELECT gudang.*, barang_masuk.tanggal, barang_masuk.nama_barang, barang_keluar.tanggal, barang_keluar.tanggal FROM gudang inner join barang_masuk on gudang.nama_barang = barang_masuk.nama_barang inner join barang_keluar on gudang.nama_barang = barang_keluar.nama_barang where gudang.nama_barang = '$nama' && barang_masuk.tanggal=barang_keluar.tanggal";
-                                                            $rowmsk = $config->query($sqlmsk);
-                                                            while($is = $rowmsk->fetch_array()){
-                                                    ?>
-                                                    <td></td>
-                                                    <tr>
-                                                        <td class="table-layout-2 text-center">
-                                                            <?php echo $is['jumlah'] ?></td>
-                                                    </tr>
-                                                    <?php
-                                                        }
-                                                    }
-                                                    ?>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                            }
+                            ?>
+                        </table>
+                        <br>
+                        <h1>Stok OUT</h1>
+                        <h2>Stok Barang Keluar (OUT)</h2>
+                        <table class="table-layout">
+                            <tr>
+                                <th class="table-layout-2">No</th>
+                                <th class="table-layout-2">Transaksi Keluar</th>
+                                <th class="table-layout-2">Nama Barang</th>
+                                <th class="table-layout-2">Qty</th>
+                                <th class="table-layout-2">Tanggal Keluar</th>
+                            </tr>
+
+                            <?php
+                            if(isset($_POST['nama_barang']) && isset($_POST['tanggal'])){
+                                $sql = mysqli_query($config, "SELECT barang_keluar.tanggal, barang_keluar.id_transaksi, barang_keluar.jumlah, 
+                                barang_keluar.nama_barang, gudang.nama_barang FROM barang_keluar LEFT JOIN gudang ON gudang.nama_barang = barang_keluar.nama_barang where barang_keluar.nama_barang = '$_POST[nama_barang]' and barang_keluar.tanggal = '$_POST[tanggal]' group BY barang_keluar.tanggal desc") or die(mysqli_error($config));
+                                $no = 1;
+                                while ($c = mysqli_fetch_assoc($sql)) {
+                                    echo"<tr>
+                                        <td class='table-layout-2'>".$no++."</td>
+                                        <td class='table-layout-2'>".$c['id_transaksi']."</td>
+                                        <td class='table-layout-2'>".$c['nama_barang']."</td>
+                                        <td class='table-layout-2'>".$c['jumlah']."</td>
+                                        <td class='table-layout-2'>".$c['tanggal']."</td>
+                                    </tr>";
+                                    }
+                                }
+                            ?>
+                        </table>
+                        <br>
+                        <h1>Persediaan</h1>
+                        <h2>Stok Gudang</h2>
+                        <table class="table-layout">
+                            <tr>
+                                <th class="table-layout-2">No</th>
+                                <th class="table-layout-2">Nama Barang</th>
+                                <th class="table-layout-2">Qty</th>
+                            </tr>
+
+                            <?php
+                            if(isset($_POST['nama_barang'])){
+                                $sql = mysqli_query($config, "SELECT gudang.jumlah,gudang.nama_barang, barang_masuk.nama_barang, barang_keluar.nama_barang FROM gudang
+                                 LEFT JOIN barang_masuk ON gudang.nama_barang = barang_masuk.nama_barang LEFT JOIN barang_keluar ON gudang.nama_barang = barang_keluar.nama_barang where gudang.nama_barang = '$_POST[nama_barang]' group by gudang.nama_barang desc") or die(mysqli_error($config));
+                                $no = 1;
+                                while ($c = mysqli_fetch_assoc($sql)) {
+                                    echo"<tr>
+                                        <td class='table-layout-2'>".$no++."</td>
+                                        <td class='table-layout-2'>".$c['nama_barang']."</td>
+                                        <td class='table-layout-2'>".$c['jumlah']."</td>
+                                    </tr>";
+                                    }
+                                }
+                            ?>
+                        </table>
                     </div>
                 </div>
             </div>
