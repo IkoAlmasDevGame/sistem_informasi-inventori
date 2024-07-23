@@ -26,6 +26,66 @@ new DataTable('#example1', {
     }),
 );
 
+new DataTable('#example3', {
+        search: {
+            return: true,
+        },
+    },
+    $(document).ready(function() {
+        $('#example3_length').hide(true);
+        $('#example3_filter').hide(true);
+        $('#example3_info').hide(true);
+        $('#example3_next').hide(true);
+        $('.page-link').hide(true);
+        $('.dataTables_empty').hide(true);
+    }),
+);
+
+new DataTable('#example4', {
+        search: {
+            return: true,
+        },
+    },
+    $(document).ready(function() {
+        $('#example4_length').hide(true);
+        $('#example4_filter').hide(true);
+        $('#example4_info').hide(true);
+        $('#example4_next').hide(true);
+        $('.page-link').hide(true);
+        $('.dataTables_empty').hide(true);
+    }),
+);
+
+new DataTable('#example5', {
+        search: {
+            return: true,
+        },
+    },
+    $(document).ready(function() {
+        $('#example5_length').hide(true);
+        $('#example5_filter').hide(true);
+        $('#example5_info').hide(true);
+        $('#example5_next').hide(true);
+        $('.page-link').hide(true);
+        $('.dataTables_empty').hide(true);
+    }),
+);
+
+new DataTable('#example6', {
+        search: {
+            return: true,
+        },
+    },
+    $(document).ready(function() {
+        $('#example6_length').hide(true);
+        $('#example6_filter').hide(true);
+        $('#example6_info').hide(true);
+        $('#example6_next').hide(true);
+        $('.page-link').hide(true);
+        $('.dataTables_empty').hide(true);
+    }),
+);
+
 new DataTable('#example2', {
     search: {
         return: false,

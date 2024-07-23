@@ -134,6 +134,11 @@ if($_SESSION["role"] == "superadmin")
                     <i class="bi bi-circle"></i><span>Laporan Supplier</span>
                 </a>
             </li>
+            <li>
+                <a href="?page=laporan-persediaan" aria-current="page">
+                    <i class="bi bi-circle"></i><span>Laporan Persediaan</span>
+                </a>
+            </li>
         </ul>
 
         <a href="#" data-bs-target="#setting-nav" data-bs-toggle="collapse" role="button" class="nav-link collapsed">

@@ -68,11 +68,17 @@ if(!isset($_GET["page"])){
         case 'sistem':
             require_once("../settings/sistem.php");
             break;
+
+        // Laporan Persediaan
+            case 'laporan-persediaan':
+                require_once("../laporan/laporan_persediaan.php");
+                break;
             
         // Laporan Barang Masuk
         case 'laporan-barangmasuk':
             require_once("../laporan/laporan_barangmasuk.php");
             break;
+            
             
         case 'export-laporanbarangmasuk':
             require_once("../laporan/export_laporan_barangmasuk.php");
