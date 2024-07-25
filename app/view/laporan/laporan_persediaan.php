@@ -85,8 +85,8 @@
                             </tr>
 
                             <?php
-                            if(isset($_POST['nama_barang']) && isset($_POST['tanggal'])){
-                            $sql = mysqli_query($config, "SELECT barang_masuk.tanggal, barang_masuk.jumlah, barang_masuk.id_transaksi, barang_masuk.nama_barang, gudang.nama_barang FROM barang_masuk LEFT JOIN gudang ON barang_masuk.nama_barang = gudang.nama_barang where barang_masuk.nama_barang = '$_POST[nama_barang]' and barang_masuk.tanggal = '$_POST[tanggal]' group BY barang_masuk.tanggal desc") or die(mysqli_error($config));            
+                            if(isset($_POST['nama_barang'])){
+                            $sql = mysqli_query($config, "SELECT barang_masuk.tanggal, barang_masuk.jumlah, barang_masuk.id_transaksi, barang_masuk.nama_barang, gudang.nama_barang FROM barang_masuk LEFT JOIN gudang ON barang_masuk.nama_barang = gudang.nama_barang where barang_masuk.nama_barang = '$_POST[nama_barang]' order BY barang_masuk.nama_barang desc") or die(mysqli_error($config));            
                             $no = 1;
                             while ($a = mysqli_fetch_assoc($sql)) {
                                 echo"<tr>
@@ -111,9 +111,9 @@
                             </tr>
 
                             <?php
-                            if(isset($_POST['nama_barang']) && isset($_POST['tanggal'])){
+                            if(isset($_POST['nama_barang'])){
                                 $sql = mysqli_query($config, "SELECT barang_keluar.tanggal, barang_keluar.id_transaksi, barang_keluar.jumlah, 
-                                barang_keluar.nama_barang, gudang.nama_barang FROM barang_keluar LEFT JOIN gudang ON gudang.nama_barang = barang_keluar.nama_barang where barang_keluar.nama_barang = '$_POST[nama_barang]' and barang_keluar.tanggal = '$_POST[tanggal]' group BY barang_keluar.tanggal desc") or die(mysqli_error($config));
+                                barang_keluar.nama_barang, gudang.nama_barang FROM barang_keluar LEFT JOIN gudang ON gudang.nama_barang = barang_keluar.nama_barang where barang_keluar.nama_barang = '$_POST[nama_barang]' order BY barang_keluar.nama_barang desc") or die(mysqli_error($config));
                                 $no = 1;
                                 while ($c = mysqli_fetch_assoc($sql)) {
                                     echo"<tr>
