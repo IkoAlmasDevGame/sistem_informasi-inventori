@@ -42,21 +42,6 @@
                                     </select>
                                 </div>
                                 <div class="col-sm-3 mx-1">
-                                    <select name="tanggal" class="form-select" id="">
-                                        <option value="">Pilih Tanggal</option>
-                                        <?php 
-                                            $master2 = $config->query("SELECT barang_masuk.*, barang_keluar.tanggal FROM barang_masuk LEFT JOIN barang_keluar ON barang_masuk.tanggal = barang_keluar.tanggal group by barang_masuk.tanggal asc");
-                                            while($data2 = $master2->fetch_array()){
-                                        ?>
-                                        <option value="<?=$data2['tanggal']?>">
-                                            <?=$data2['tanggal']?>
-                                        </option>
-                                        <?php
-                                            }
-                                        ?>
-                                    </select>
-                                </div>
-                                <div class="col-sm-3 mx-1">
                                     <button type="submit" class="btn btn-primary">
                                         Submit
                                     </button>
@@ -68,6 +53,23 @@
                                 <i class="fa fa-refresh fa-1x"></i>
                                 <span>Refresh Page</span>
                             </a>
+                            <?php 
+                            if(isset($_POST['nama_barang'])){
+                                $nama_master = $config->query("SELECT gudang.*, barang_masuk.nama_barang, barang_keluar.nama_barang FROM gudang
+                                 LEFT JOIN barang_masuk ON gudang.nama_barang = barang_masuk.nama_barang LEFT JOIN barang_keluar ON gudang.nama_barang = barang_keluar.nama_barang where gudang.nama_barang = '$_POST[nama_barang]' group by gudang.nama_barang desc");
+                            foreach ($nama_master as $isi) {
+                            ?>
+                            <div class="mt-3 mb-1 text-end">
+                                <a href="?page=export-laporan-persediaan&nama_barang=<?=$isi['nama_barang']?>"
+                                    class="btn btn-sm btn-secondary">
+                                    <i class="fa fa-file-excel fa-1x"></i>
+                                    <span> Export To Excel</span>
+                                </a>
+                            </div>
+                            <?php 
+                                }
+                            }
+                            ?>
                         </div>
                     </div>
                     <div class="card-body">
@@ -80,12 +82,11 @@
                                 <th class="table-layout-2">Transaksi Masuk</th>
                                 <th class="table-layout-2">Nama Barang</th>
                                 <th class="table-layout-2">Qty</th>
-                                <th class="table-layout-2">Tanggal Masuk</th>
                             </tr>
 
                             <?php
-                            if(isset($_POST['nama_barang']) && isset($_POST['tanggal'])){
-                            $sql = mysqli_query($config, "SELECT barang_masuk.tanggal, barang_masuk.jumlah, barang_masuk.id_transaksi, barang_masuk.nama_barang, gudang.nama_barang FROM barang_masuk LEFT JOIN gudang ON barang_masuk.nama_barang = gudang.nama_barang where barang_masuk.nama_barang = '$_POST[nama_barang]' and barang_masuk.tanggal = '$_POST[tanggal]' group BY barang_masuk.tanggal desc") or die(mysqli_error($config));            
+                            if(isset($_POST['nama_barang'])){
+                            $sql = mysqli_query($config, "SELECT barang_masuk.tanggal, barang_masuk.jumlah, barang_masuk.id_transaksi, barang_masuk.nama_barang, gudang.nama_barang FROM barang_masuk LEFT JOIN gudang ON barang_masuk.nama_barang = gudang.nama_barang where barang_masuk.nama_barang = '$_POST[nama_barang]' order BY barang_masuk.nama_barang desc") or die(mysqli_error($config));            
                             $no = 1;
                             while ($a = mysqli_fetch_assoc($sql)) {
                                 echo"<tr>
@@ -93,7 +94,6 @@
                                     <td class='table-layout-2'>".$a['id_transaksi']."</td>
                                     <td class='table-layout-2'>".$a['nama_barang']."</td>
                                     <td class='table-layout-2'>".$a['jumlah']."</td>
-                                    <td class='table-layout-2'>".$a['tanggal']."</td>
                                 </tr>";
                                 }
                             }
@@ -108,13 +108,12 @@
                                 <th class="table-layout-2">Transaksi Keluar</th>
                                 <th class="table-layout-2">Nama Barang</th>
                                 <th class="table-layout-2">Qty</th>
-                                <th class="table-layout-2">Tanggal Keluar</th>
                             </tr>
 
                             <?php
-                            if(isset($_POST['nama_barang']) && isset($_POST['tanggal'])){
+                            if(isset($_POST['nama_barang'])){
                                 $sql = mysqli_query($config, "SELECT barang_keluar.tanggal, barang_keluar.id_transaksi, barang_keluar.jumlah, 
-                                barang_keluar.nama_barang, gudang.nama_barang FROM barang_keluar LEFT JOIN gudang ON gudang.nama_barang = barang_keluar.nama_barang where barang_keluar.nama_barang = '$_POST[nama_barang]' and barang_keluar.tanggal = '$_POST[tanggal]' group BY barang_keluar.tanggal desc") or die(mysqli_error($config));
+                                barang_keluar.nama_barang, gudang.nama_barang FROM barang_keluar LEFT JOIN gudang ON gudang.nama_barang = barang_keluar.nama_barang where barang_keluar.nama_barang = '$_POST[nama_barang]' order BY barang_keluar.nama_barang desc") or die(mysqli_error($config));
                                 $no = 1;
                                 while ($c = mysqli_fetch_assoc($sql)) {
                                     echo"<tr>
@@ -122,7 +121,6 @@
                                         <td class='table-layout-2'>".$c['id_transaksi']."</td>
                                         <td class='table-layout-2'>".$c['nama_barang']."</td>
                                         <td class='table-layout-2'>".$c['jumlah']."</td>
-                                        <td class='table-layout-2'>".$c['tanggal']."</td>
                                     </tr>";
                                     }
                                 }

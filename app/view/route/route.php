@@ -70,9 +70,12 @@ if(!isset($_GET["page"])){
             break;
 
         // Laporan Persediaan
-            case 'laporan-persediaan':
-                require_once("../laporan/laporan_persediaan.php");
-                break;
+        case 'laporan-persediaan':
+            require_once("../laporan/laporan_persediaan.php");
+            break;
+        case 'export-laporan-persediaan':
+            require_once("../laporan/export_persediaan.php");
+            break;
             
         // Laporan Barang Masuk
         case 'laporan-barangmasuk':
