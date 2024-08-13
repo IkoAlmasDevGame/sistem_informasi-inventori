@@ -54,7 +54,7 @@ class Gudang {
         }
     }
 
-    public function update($kode_barang,$nama_barang,$jenis_barang,$jumlah,$satuan,$id_gudang){
+    public function update($kode_barang,$nama_barang,$jenis_barang,$jumlah,$satuan,$tanggal,$id_gudang){
         $kode_barang = htmlentities($_POST['kode_barang']) ? htmlspecialchars($_POST['kode_barang']) : $_POST['kode_barang'];
         $nama_barang = htmlentities($_POST['nama_barang']) ? htmlspecialchars($_POST['nama_barang']) : $_POST['nama_barang'];
         $jenis_barang = htmlentities($_POST['jenis_barang']) ? htmlspecialchars($_POST['jenis_barang']) : $_POST['jenis_barang'];
@@ -66,11 +66,12 @@ class Gudang {
         $pecah_satuan = explode(".", $satuan);     
         $id = $pecah_satuan[0];
         $satuan = $pecah_satuan[1];
+	$tanggal = htmlentities($_POST['tanggal']) ? htmlspecialchars($_POST['tanggal']) : $_POST['tanggal'];
         $id_gudang = htmlentities($_POST["id"]) ? htmlspecialchars($_POST["id"]) : $_POST["id"];
 
         $table = "gudang";
         $sql = "UPDATE $table SET kode_barang = '$kode_barang', nama_barang = '$nama_barang', jenis_barang = '$jenis_barang',
-         jumlah = '$jumlah', satuan = '$satuan' WHERE id = '$id_gudang'";
+         jumlah = '$jumlah', satuan = '$satuan', tanggal = '$tanggal' WHERE id = '$id_gudang'";
         $row = $this->db->query($sql);
 
         if($row){
