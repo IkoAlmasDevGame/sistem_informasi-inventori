@@ -18,7 +18,7 @@ class Gudang {
         return $row;
     }
 
-    public function create($kode_barang,$nama_barang,$jenis_barang,$jumlah,$satuan){
+    public function create($kode_barang,$nama_barang,$jenis_barang,$jumlah,$satuan,$tanggal){
         $kode_barang = htmlentities($_POST['kode_barang']) ? htmlspecialchars($_POST['kode_barang']) : $_POST['kode_barang'];
         $nama_barang = htmlentities($_POST['nama_barang']) ? htmlspecialchars($_POST['nama_barang']) : $_POST['nama_barang'];
         $jenis_barang = htmlentities($_POST['jenis_barang']) ? htmlspecialchars($_POST['jenis_barang']) : $_POST['jenis_barang'];
@@ -30,10 +30,11 @@ class Gudang {
         $pecah_satuan = explode(".", $satuan);     
         $id = $pecah_satuan[0];
         $satuan = $pecah_satuan[1];
+	$tanggal = htmlentities($_POST['tanggal']) ? htmlspecialchars($_POST['tanggal']) : $_POST['tanggal'];
 
         $table = "gudang";
-        $sql = "INSERT $table SET kode_barang = '$kode_barang', nama_barang = '$nama_barang', jenis_barang = '$jenis_barang',
-         jumlah = '$jumlah', satuan = '$satuan'";
+        $sql = "INSERT INTO $table SET kode_barang = '$kode_barang', nama_barang = '$nama_barang', jenis_barang = '$jenis_barang',
+         jumlah = '$jumlah', satuan = '$satuan', tanggal = '$tanggal'";
         $row = $this->db->query($sql);
 
         if($row){
