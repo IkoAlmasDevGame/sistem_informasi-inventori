@@ -90,7 +90,8 @@ CREATE TABLE `gudang` (
   `nama_barang` varchar(100) NOT NULL,
   `jenis_barang` varchar(100) NOT NULL,
   `jumlah` varchar(250) NOT NULL,
-  `satuan` varchar(100) NOT NULL
+  `satuan` varchar(100) NOT NULL,
+  `tanggal` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 -- --------------------------------------------------------
