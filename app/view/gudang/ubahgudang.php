@@ -99,6 +99,15 @@
                                             </select>
                                         </td>
                                     </tr>
+                                    <tr>
+                                        <td>
+                                            <label for="">Tanggal Expired</label>
+                                            <div class="form-inline">
+                                                <input type="date" value="<?php echo $isi["tanggal"]?>" name="tanggal" 
+                                                class="form-control" required id="">
+                                            </div>
+                                        </td>
+                                    </tr>
                                 </table>
                                 <div class="card-footer">
                                     <div class="text-end">
