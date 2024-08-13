@@ -283,8 +283,9 @@ class Building {
         $pecah_satuan = explode(".", $satuan);     
         $id = $pecah_satuan[0];
         $satuan_pecah = $pecah_satuan[1];
+	$tanggal = htmlentities($_POST['tanggal']) ? htmlspecialchars($_POST['tanggal']) : $_POST['tanggal'];
 
-        $result = $this->konfig->create($kode_barang,$nama_barang,$jenis_barang,$jumlah,$satuan);
+        $result = $this->konfig->create($kode_barang,$nama_barang,$jenis_barang,$jumlah,$satuan,$tanggal);
         if($result === true){
             return true;
         }else{
@@ -304,9 +305,10 @@ class Building {
         $pecah_satuan = explode(".", $satuan);     
         $id = $pecah_satuan[0];
         $satuan_pecah = $pecah_satuan[1];
+	$tanggal = htmlentities($_POST['tanggal']) ? htmlspecialchars($_POST['tanggal']) : $_POST['tanggal'];
         $id_gudang = htmlentities($_POST["id"]) ? htmlspecialchars($_POST["id"]) : $_POST["id"];
 
-        $result = $this->konfig->update($kode_barang,$nama_barang,$jenis_barang,$jumlah,$satuan,$id_gudang);
+        $result = $this->konfig->update($kode_barang,$nama_barang,$jenis_barang,$jumlah,$satuan,$tanggal,$id_gudang);
         if($result === true){
             return true;
         }else{
