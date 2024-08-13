@@ -41,6 +41,7 @@
                                     <th>Jenis Barang</th>
                                     <th>Jumlah Barang</th>
                                     <th>Satuan</th>
+                                    <th>Tanggal Expired</th>
                                     <th>Opsional</th>
                                 </tr>
                             </thead>
@@ -57,6 +58,7 @@
                                     <td><?php echo $isi['jenis_barang'] ?></td>
                                     <td><?php echo $isi['jumlah'] ?></td>
                                     <td><?php echo $isi['satuan'] ?></td>
+                                    <td><?php echo $isi['tanggal'] ?></td>
                                     <td>
                                         <a href="?page=gudang&aksi=ubahgudang&id=<?=$isi['id']?>" aria-current="page"
                                             class="btn btn-warning btn-sm hover">
